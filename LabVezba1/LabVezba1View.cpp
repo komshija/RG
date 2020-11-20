@@ -79,8 +79,11 @@ double CLabVezba1View::getY(int radius, float angle)
 
 void CLabVezba1View::crtajMnogougao(CDC* pDC, double radius, int cornerCount, double x, double y, CBrush* brush)
 {
-	CBrush* oldBrush = pDC->SelectObject(brush);
-
+	CGdiObject* oldBrush = nullptr;
+	if (brush != nullptr)
+		oldBrush = pDC->SelectObject(brush);
+	else
+		oldBrush = pDC->SelectStockObject(NULL_BRUSH);
 	const double KRUG_CONST = 2 * 3.14159265358979323846;
 	double deoKruga = KRUG_CONST / cornerCount;
 	double mainRadius = radius * this->gridSize;
@@ -127,59 +130,96 @@ void CLabVezba1View::OnDraw(CDC* pDC)
 	//============================ZELENI==============================
 
 	CBrush* zeleniBrush = new CBrush(RGB(0, 200, 0));
-	crtajTrougao(pDC, CPoint(1 * this->gridSize, 12 * this->gridSize), CPoint(15 * this->gridSize, 12 * this->gridSize), CPoint(8 * this->gridSize, 19 * this->gridSize), zeleniBrush);
-	crtajMnogougao(pDC, 1.5, 7, 8, 14.5, zeleniBrush);
+	crtajTrougao(pDC,
+		CPoint(1 * this->gridSize, 12 * this->gridSize),
+		CPoint(15 * this->gridSize, 12 * this->gridSize),
+		CPoint(8 * this->gridSize, 19 * this->gridSize),
+		zeleniBrush);
 	delete zeleniBrush;
 
 	//================================================================
 	//=======================NARANDZASTI==============================
 
 	CBrush* narandzastiBrush = new CBrush(RGB(255, 128, 0));
-	crtajTrougao(pDC, CPoint(1 * this->gridSize, 12 * this->gridSize), CPoint(15 * this->gridSize, 12 * this->gridSize), CPoint(8 * this->gridSize, 5 * this->gridSize), narandzastiBrush);
-	crtajMnogougao(pDC, 1.5, 6, 8, 9.5, narandzastiBrush);
+	crtajTrougao(pDC,
+		CPoint(1 * this->gridSize, 12 * this->gridSize),
+		CPoint(15 * this->gridSize, 12 * this->gridSize),
+		CPoint(8 * this->gridSize, 5 * this->gridSize),
+		narandzastiBrush);
 	delete narandzastiBrush;
 
 	//================================================================
 	//=========================SRAFIRANI==============================
 
 	CBrush* srafuraBrush = new CBrush(HS_DIAGCROSS, RGB(0, 0, 255));
-	crtajCetvorougao(pDC, CPoint(4 * this->gridSize, 1 * this->gridSize), CPoint(11 * this->gridSize, 1 * this->gridSize), CPoint(15 * this->gridSize, 5 * this->gridSize), CPoint(8 * this->gridSize, 5 * this->gridSize), srafuraBrush);
+	crtajCetvorougao(pDC,
+		CPoint(4 * this->gridSize, 1 * this->gridSize),
+		CPoint(11 * this->gridSize, 1 * this->gridSize),
+		CPoint(15 * this->gridSize, 5 * this->gridSize),
+		CPoint(8 * this->gridSize, 5 * this->gridSize),
+		srafuraBrush);
 	delete srafuraBrush;
 
 	//================================================================
 	//========================LJUBICASTI==============================
 
 	CBrush* ljubicastiBrush = new CBrush(RGB(128, 0, 200));
-	crtajTrougao(pDC, CPoint(8 * this->gridSize, 5 * this->gridSize), CPoint(15 * this->gridSize, 5 * this->gridSize), CPoint(11.5 * this->gridSize, 8.5 * this->gridSize), ljubicastiBrush);
-	crtajMnogougao(pDC, 1, 5, 11.5, 6.5, ljubicastiBrush);
+	crtajTrougao(pDC,
+		CPoint(8 * this->gridSize, 5 * this->gridSize),
+		CPoint(15 * this->gridSize, 5 * this->gridSize),
+		CPoint(11.5 * this->gridSize, 8.5 * this->gridSize),
+		ljubicastiBrush);
 	delete ljubicastiBrush;
 
 	//================================================================
 	//============================CRVENI==============================
 
 	CBrush* crveniBrush = new CBrush(RGB(255, 0, 0));
-	crtajCetvorougao(pDC, CPoint(15 * this->gridSize, 5 * this->gridSize), CPoint(11.5 * this->gridSize, 8.5 * this->gridSize), CPoint(15 * this->gridSize, 12 * this->gridSize), CPoint(18.5 * this->gridSize, 8.5 * this->gridSize), crveniBrush);
+	crtajCetvorougao(pDC,
+		CPoint(15 * this->gridSize, 5 * this->gridSize),
+		CPoint(11.5 * this->gridSize, 8.5 * this->gridSize),
+		CPoint(15 * this->gridSize, 12 * this->gridSize),
+		CPoint(18.5 * this->gridSize, 8.5 * this->gridSize),
+		crveniBrush);
 	delete crveniBrush;
 
 	//================================================================
 	//=============================ZUTI===============================
 
 	CBrush* zutiBrush = new CBrush(RGB(255, 255, 0));
-	crtajTrougao(pDC, CPoint(15 * this->gridSize, 12 * this->gridSize), CPoint(18.5 * this->gridSize, 8.5 * this->gridSize), CPoint(18.5 * this->gridSize, 15.5 * this->gridSize), zutiBrush);
-	crtajMnogougao(pDC, 1, 4, 17, 12, zutiBrush);
+	crtajTrougao(pDC,
+		CPoint(15 * this->gridSize, 12 * this->gridSize),
+		CPoint(18.5 * this->gridSize, 8.5 * this->gridSize),
+		CPoint(18.5 * this->gridSize, 15.5 * this->gridSize),
+		zutiBrush);
 	delete zutiBrush;
 
 	//================================================================
 	//=============================ROZE===============================
 
 	CBrush* rozeBrush = new CBrush(RGB(255, 128, 255));
-	crtajTrougao(pDC, CPoint(11 * this->gridSize, 1 * this->gridSize), CPoint(18.5 * this->gridSize, 1 * this->gridSize), CPoint(18.5 * this->gridSize, 8.5 * this->gridSize), rozeBrush);
-	crtajMnogougao(pDC, 1.5, 8, 16.5, 3.5, rozeBrush);
-
+	crtajTrougao(pDC,
+		CPoint(11 * this->gridSize, 1 * this->gridSize),
+		CPoint(18.5 * this->gridSize, 1 * this->gridSize),
+		CPoint(18.5 * this->gridSize, 8.5 * this->gridSize),
+		rozeBrush);
+	delete rozeBrush;
+	
 	//================================================================
+	//======================PRAVILNI MNOGOUGLOVI======================
+
+	crtajMnogougao(pDC, 1.5, 7, 8, 15, nullptr);
+	crtajMnogougao(pDC, 1.5, 6, 8, 9, nullptr);
+	crtajMnogougao(pDC, 1, 5, 11.5, 6.5, nullptr);
+	crtajMnogougao(pDC, 1, 4, 17, 12, nullptr);
+	crtajMnogougao(pDC, 1.5, 8, 16.5, 3.5, nullptr);
+
 
 	pDC->SelectObject(stariPen);
 	delete zeleniPen;
+
+	//================================================================
+	//=============================GRID===============================
 
 	//Grid se crta pritiskom na SPACE
 	//Grid se povecava pritiskom na strelicu na gore
@@ -261,7 +301,7 @@ void CLabVezba1View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 	else if (nChar == VK_DOWN)
 	{
-		if (this->gridSize != 0)
+		if (this->gridSize != 5)
 		{
 			this->gridSize -= 5;
 			Invalidate();
