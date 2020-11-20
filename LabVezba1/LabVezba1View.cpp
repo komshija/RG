@@ -307,6 +307,6 @@ void CLabVezba1View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			Invalidate();
 		}
 	}
-
+	//test
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }
