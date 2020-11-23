@@ -58,6 +58,7 @@ void CLabVezba1View::crtajTrougao(CDC* pDC, CPoint& p1, CPoint& p2, CPoint& p3, 
 
 	pDC->SelectObject(oldBrush);
 }
+
 void CLabVezba1View::crtajCetvorougao(CDC* pDC, CPoint& p1, CPoint& p2, CPoint& p3, CPoint& p4, CBrush* brush)
 {
 	CBrush* oldBrush = pDC->SelectObject(brush);
@@ -123,7 +124,7 @@ void CLabVezba1View::OnDraw(CDC* pDC)
 		return;
 
 
-	CPen* zeleniPen = new CPen(PS_SOLID, 3, RGB(0, 255, 0));
+	CPen* zeleniPen = new CPen(PS_SOLID, 5, RGB(0, 255, 0));
 	CPen* stariPen = pDC->SelectObject(zeleniPen);
 
 	//================================================================
@@ -131,20 +132,20 @@ void CLabVezba1View::OnDraw(CDC* pDC)
 
 	CBrush* zeleniBrush = new CBrush(RGB(0, 200, 0));
 	crtajTrougao(pDC,
-		CPoint(1 * this->gridSize, 12 * this->gridSize),
-		CPoint(15 * this->gridSize, 12 * this->gridSize),
-		CPoint(8 * this->gridSize, 19 * this->gridSize),
+		CPoint(1.5 * this->gridSize, 11.5 * this->gridSize),
+		CPoint(15.5 * this->gridSize, 11.5 * this->gridSize),
+		CPoint(8.5 * this->gridSize, 18.5 * this->gridSize),
 		zeleniBrush);
 	delete zeleniBrush;
 
 	//================================================================
 	//=======================NARANDZASTI==============================
-
+	
 	CBrush* narandzastiBrush = new CBrush(RGB(255, 128, 0));
 	crtajTrougao(pDC,
-		CPoint(1 * this->gridSize, 12 * this->gridSize),
-		CPoint(15 * this->gridSize, 12 * this->gridSize),
-		CPoint(8 * this->gridSize, 5 * this->gridSize),
+		CPoint(1.5 * this->gridSize, 11.5 * this->gridSize),
+		CPoint(15.5 * this->gridSize, 11.5 * this->gridSize),
+		CPoint(8.5 * this->gridSize, 4.5 * this->gridSize),
 		narandzastiBrush);
 	delete narandzastiBrush;
 
@@ -153,10 +154,10 @@ void CLabVezba1View::OnDraw(CDC* pDC)
 
 	CBrush* srafuraBrush = new CBrush(HS_DIAGCROSS, RGB(0, 0, 255));
 	crtajCetvorougao(pDC,
-		CPoint(4 * this->gridSize, 1 * this->gridSize),
-		CPoint(11 * this->gridSize, 1 * this->gridSize),
-		CPoint(15 * this->gridSize, 5 * this->gridSize),
-		CPoint(8 * this->gridSize, 5 * this->gridSize),
+		CPoint(5 * this->gridSize, 1 * this->gridSize),
+		CPoint(12 * this->gridSize, 1 * this->gridSize),
+		CPoint(15.5 * this->gridSize, 4.5 * this->gridSize),
+		CPoint(8.5 * this->gridSize, 4.5 * this->gridSize),
 		srafuraBrush);
 	delete srafuraBrush;
 
@@ -165,54 +166,58 @@ void CLabVezba1View::OnDraw(CDC* pDC)
 
 	CBrush* ljubicastiBrush = new CBrush(RGB(128, 0, 200));
 	crtajTrougao(pDC,
-		CPoint(8 * this->gridSize, 5 * this->gridSize),
-		CPoint(15 * this->gridSize, 5 * this->gridSize),
-		CPoint(11.5 * this->gridSize, 8.5 * this->gridSize),
+		CPoint(8.5 * this->gridSize, 4.5 * this->gridSize),
+		CPoint(15.5 * this->gridSize, 4.5 * this->gridSize),
+		CPoint(12 * this->gridSize, 8 * this->gridSize),
 		ljubicastiBrush);
 	delete ljubicastiBrush;
-
-	//================================================================
-	//============================CRVENI==============================
-
-	CBrush* crveniBrush = new CBrush(RGB(255, 0, 0));
-	crtajCetvorougao(pDC,
-		CPoint(15 * this->gridSize, 5 * this->gridSize),
-		CPoint(11.5 * this->gridSize, 8.5 * this->gridSize),
-		CPoint(15 * this->gridSize, 12 * this->gridSize),
-		CPoint(18.5 * this->gridSize, 8.5 * this->gridSize),
-		crveniBrush);
-	delete crveniBrush;
 
 	//================================================================
 	//=============================ZUTI===============================
 
 	CBrush* zutiBrush = new CBrush(RGB(255, 255, 0));
 	crtajTrougao(pDC,
-		CPoint(15 * this->gridSize, 12 * this->gridSize),
-		CPoint(18.5 * this->gridSize, 8.5 * this->gridSize),
-		CPoint(18.5 * this->gridSize, 15.5 * this->gridSize),
+		CPoint(15.5 * this->gridSize, 11.5 * this->gridSize),
+		CPoint(19 * this->gridSize, 8 * this->gridSize),
+		CPoint(19 * this->gridSize, 15 * this->gridSize),
 		zutiBrush);
 	delete zutiBrush;
+
+	//================================================================
+	//============================CRVENI==============================
+
+	CBrush* crveniBrush = new CBrush(RGB(255, 0, 0));
+	crtajCetvorougao(pDC,
+		CPoint(15.5 * this->gridSize, 4.5 * this->gridSize),
+		CPoint(12 * this->gridSize, 8 * this->gridSize),
+		CPoint(15.5 * this->gridSize, 11.5 * this->gridSize),
+		CPoint(19 * this->gridSize, 8 * this->gridSize),
+		crveniBrush);
+	delete crveniBrush;
 
 	//================================================================
 	//=============================ROZE===============================
 
 	CBrush* rozeBrush = new CBrush(RGB(255, 128, 255));
 	crtajTrougao(pDC,
-		CPoint(11 * this->gridSize, 1 * this->gridSize),
-		CPoint(18.5 * this->gridSize, 1 * this->gridSize),
-		CPoint(18.5 * this->gridSize, 8.5 * this->gridSize),
+		CPoint(12 * this->gridSize, 1 * this->gridSize),
+		CPoint(19 * this->gridSize, 1 * this->gridSize),
+		CPoint(19 * this->gridSize, 8 * this->gridSize),
 		rozeBrush);
 	delete rozeBrush;
 	
 	//================================================================
 	//======================PRAVILNI MNOGOUGLOVI======================
+	pDC->SelectObject(stariPen);
+	zeleniPen->DeleteObject();
+	zeleniPen = new CPen(PS_SOLID, 3, RGB(0, 255, 0));
+	pDC->SelectObject(zeleniPen);
 
-	crtajMnogougao(pDC, 1.5, 7, 8, 15, nullptr);
-	crtajMnogougao(pDC, 1.5, 6, 8, 9, nullptr);
-	crtajMnogougao(pDC, 1, 5, 11.5, 6.5, nullptr);
-	crtajMnogougao(pDC, 1, 4, 17, 12, nullptr);
-	crtajMnogougao(pDC, 1.5, 8, 16.5, 3.5, nullptr);
+	crtajMnogougao(pDC, 1.5, 7,8.5,14.4, nullptr);
+	crtajMnogougao(pDC, 1.5, 6, 8.5, 8.4, nullptr);
+	crtajMnogougao(pDC, 0.75, 5, 12, 5.8 , nullptr);
+	crtajMnogougao(pDC, 0.75, 4, 17.5, 11.5, nullptr);
+	crtajMnogougao(pDC, 1.1, 8, 16.9, 3.1, nullptr);
 
 
 	pDC->SelectObject(stariPen);
@@ -226,17 +231,15 @@ void CLabVezba1View::OnDraw(CDC* pDC)
 	//Grid se smanjuje pritiskom na strelicu na dole
 	if (this->keyPressed)
 	{
-		CRect rect;
-		GetClientRect(&rect);
-		for (long x = 0; x < rect.right; x = x + this->gridSize)
+		for (long x = 0; x < this->gridSize * 21; x = x + this->gridSize)
 		{
 			pDC->MoveTo(x, 0);
-			pDC->LineTo(x, rect.bottom);
+			pDC->LineTo(x, this->gridSize * 20);
 		}
-		for (long y = 0; y < rect.bottom; y = y + this->gridSize)
+		for (long y = 0; y < this->gridSize * 21; y = y + this->gridSize)
 		{
 			pDC->MoveTo(0, y);
-			pDC->LineTo(rect.right, y);
+			pDC->LineTo(this->gridSize * 20, y);
 		}
 	}
 
