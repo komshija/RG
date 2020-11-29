@@ -203,28 +203,10 @@ void CGDILabVezba2View::_DrawPot(CDC* pDC)
 void CGDILabVezba2View::_DrawName(CDC* pDC)
 {
 	XFORM oldForm, form1;
-	pDC->SetGraphicsMode(GM_ADVANCED);
+	int oldMode = pDC->SetGraphicsMode(GM_ADVANCED);
 	pDC->GetWorldTransform(&oldForm);
 	//Postavljamo rotaciju za Pi/2
-	form1 = {
-		cosf(C_PI / 2.0),
-		sinf(C_PI / 2.0),
-		-sinf(C_PI / 2.0),
-		cosf(C_PI / 2.0),
-		475,
-		25
-	};
-	pDC->SetWorldTransform(&form1);
-
-	form1 = {
-		1,
-		0,
-		0,
-		1,
-		-475,
-		-25
-	};
-	pDC->ModifyWorldTransform(&form1, MWT_LEFTMULTIPLY);
+	_SetRoation(pDC, C_PI / 2.0, 475, 25);
 
 	CString* ime = new CString("16835 Milan Radosavljevic");
 	CFont* font = new CFont();
@@ -244,6 +226,7 @@ void CGDILabVezba2View::_DrawName(CDC* pDC)
 	delete font;
 	delete ime;
 	pDC->SetWorldTransform(&oldForm);
+	pDC->SetGraphicsMode(oldMode);
 }
 
 void CGDILabVezba2View::_DrawBackground(CDC* pDC)
@@ -263,10 +246,10 @@ void CGDILabVezba2View::_DrawCactus(CDC* pDC)
 	//Postavljamo brush
 	CBrush* brush = new CBrush(RGB(51, 204, 51));
 	CBrush* oldBrush = pDC->SelectObject(brush);
-
-
 	XFORM oldForm;
-	pDC->SetGraphicsMode(GM_ADVANCED);
+
+
+	int oldMode = pDC->SetGraphicsMode(GM_ADVANCED);
 	pDC->GetWorldTransform(&oldForm);
 
 	//Postavimo vecu promenjivu rotaciju 1
@@ -285,6 +268,7 @@ void CGDILabVezba2View::_DrawCactus(CDC* pDC)
 	pDC->SetWorldTransform(&oldForm);
 	pDC->SelectObject(oldBrush);
 	delete brush;
+	pDC->SetGraphicsMode(oldMode);
 
 }
 
@@ -296,70 +280,24 @@ void CGDILabVezba2View::_DrawRightArm(CDC* pDC)
 	const double angleStep4 = C_PI / 4;
 
 	//Rotiramo prvo za Pi/4
-	form = {
-		cosf(angleStep4),
-		sinf(angleStep4),
-		-sinf(angleStep4),
-		cosf(angleStep4),
-		250,
-		350
-	};
-	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
-	form = {
-		1,
-		0,
-		0,
-		1,
-		-250,
-		-350
-	};
-	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
+	_SetRoation(pDC, angleStep4, 250, 350);
 	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 275 + 5, 250 + (30 / 3), 350 - 5));
 	
 	pDC->GetWorldTransform(&saveForm);
 
 	//Na vec rotirano za Pi/4 zarotiramo jos za Pi/4
-	form = {
-		cosf(angleStep4),
-		sinf(angleStep4),
-		-sinf(angleStep4),
-		cosf(angleStep4),
-		250,
-		275
-	};
-	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
-	form = {
-		1,
-		0,
-		0,
-		1,
-		-250,
-		-275
-	};
-	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
+
+	_SetRoation(pDC, angleStep4, 250, 275);
+
+
 	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 2), 200 + 5, 250 + (30 / 2), 275 - 5));
 	//Resetujemo na prvu rotaciju za Pi/4
 	pDC->SetWorldTransform(&saveForm);
 
 	//Na vec rotirano za Pi/4 rotiramo za -Pi/4
-	form = {
-		cosf(-angleStep4),
-		sinf(-angleStep4),
-		-sinf(-angleStep4),
-		cosf(-angleStep4),
-		250,
-		275
-	};
-	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
-	form = {
-		1,
-		0,
-		0,
-		1,
-		-250,
-		-275
-	};
-	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
+	_SetRoation(pDC, -angleStep4, 250, 275);
+
+
 	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 2), 200 + 5, 250 + (30 / 2), 275 - 5));
 
 	pDC->SetWorldTransform(&saveForm);
@@ -376,25 +314,7 @@ void CGDILabVezba2View::_DrawLeftArm(CDC* pDC)
 	
 	//Postavlja se na rotaciju -Pi/4 koja je pod uticajem samo vece promenjive rotacije
 	const double angleStep4 = C_PI / 4;
-	form = {
-		cosf(-angleStep4),
-		sinf(-angleStep4),
-		-sinf(-angleStep4),
-		cosf(-angleStep4),
-		250,
-		350
-	};
-	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
-
-	form = {
-		1,
-		0,
-		0,
-		1,
-		-250,
-		-350
-	};
-	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
+	_SetRoation(pDC, angleStep4, 250, 350);
 
 	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 275 + 5, 250 + (30 / 3), 350 - 5));
 
@@ -415,24 +335,9 @@ void CGDILabVezba2View::_DrawUpper(CDC* pDC)
 	
 	//Prvo rotiramo za Pi/4
 	const double angleStep4 = C_PI / 4;
-	form = {
-		cosf(angleStep4),
-		sinf(angleStep4),
-		-sinf(angleStep4),
-		cosf(angleStep4),
-		250,
-		275
-	};
-	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
-	form = {
-		1,
-		0,
-		0,
-		1,
-		-250,
-		-275
-	};
-	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
+
+	_SetRoation(pDC, angleStep4, 250, 275);
+
 	//Gornji desni deo
 	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 200 + 5, 250 + (30 / 3), 275 - 5));
 	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 1), 125 + 5, 250 + (30 / 1), 200 - 5));
@@ -446,24 +351,9 @@ void CGDILabVezba2View::_DrawUpper(CDC* pDC)
 	pDC->Ellipse(250 - 15, 200 - 15, 250 + 15, 200 + 15);
 
 	//Rotiramo za -Pi/4, a pod uticajem smo obe promenjive transformacije
-	form = {
-		cosf(-angleStep4),
-		sinf(-angleStep4),
-		-sinf(-angleStep4),
-		cosf(-angleStep4),
-		250,
-		275
-	};
-	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
-	form = {
-		1,
-		0,
-		0,
-		1,
-		-250,
-		-275
-	};
-	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
+	
+	_SetRoation(pDC, -angleStep4, 250, 275);
+
 	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 200 + 5, 250 + (30 / 3), 275 - 5));
 
 	//Vracamo uticaj na samo promenjive transformacije
@@ -522,4 +412,27 @@ void CGDILabVezba2View::_SetTransformation2(CDC* pDC)
 		-350
 	};
 	pDC->ModifyWorldTransform(&form2, MWT_LEFTMULTIPLY);
+}
+
+void CGDILabVezba2View::_SetRoation(CDC* pDC, float angle, float x, float y)
+{
+	XFORM form;
+	form = {
+		cosf(angle),
+		sinf(angle),
+		-sinf(angle),
+		cosf(angle),
+		x,
+		y
+	};
+	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
+	form = {
+		1,
+		0,
+		0,
+		1,
+		-x,
+		-y
+	};
+	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
 }

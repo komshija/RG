@@ -27,6 +27,8 @@ protected: // create from serialization only
 	void _SetTransformation1(CDC* pDC); // Postavlja prvu promenjivu transformaciju
 	void _SetTransformation2(CDC* pDC); // Postavlja drugu promenjivu transformaciju
 
+	void _SetRoation(CDC* pDC, float angle, float x, float y);
+
 // Attributes	
 	bool drawGrid;// Flag za grid
 	float angle1, angle2; // Uglovi
