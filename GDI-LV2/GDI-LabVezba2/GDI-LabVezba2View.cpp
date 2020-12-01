@@ -233,11 +233,15 @@ void CGDILabVezba2View::_DrawBackground(CDC* pDC)
 {
 	CBrush* brush = new CBrush(RGB(135, 206, 235));
 	CBrush* oldBrush = pDC->SelectObject(brush);
-	CRect* rect = new CRect(0, 0, 500, 500);
+	CPen* pen = new CPen(PS_NULL, 0, RGB(0, 0, 0));
+	CPen* oldPen = pDC->SelectObject(pen);
+	CRect* rect = new CRect(0, 0, 501, 501);
 	pDC->Rectangle(rect);
 	delete rect;
 	pDC->SelectObject(oldBrush);
 	delete brush;
+	pDC->SelectObject(oldPen);
+	delete pen;
 
 }
 
@@ -255,15 +259,15 @@ void CGDILabVezba2View::_DrawCactus(CDC* pDC)
 	//Postavimo vecu promenjivu rotaciju 1
 	_SetTransformation1(pDC);
 	//Crtamo prvi kaktus
-	PlayEnhMetaFile(pDC->m_hDC, emf_cactus_light, CRect(250 - (30 / 1), 350 + 5, 250 + (30 / 1), 425 - 5));
+	PlayEnhMetaFile(pDC->m_hDC, emf_cactus_light, CRect(250 - (30 / 1), 350 , 250 + (30 / 1), 425 ));
 
 	_DrawRightArm(pDC);
 	_DrawUpper(pDC);
 	_DrawLeftArm(pDC);
 
 	//Crtamo donje spojeve (krugove) jer su oni ispred kaktusa
-	pDC->Ellipse(250 - 15, 350 - 15, 250 + 15, 350 + 15);
-	pDC->Ellipse(250 - 15, 425 - 15, 250 + 15, 425 + 15);
+	pDC->Ellipse(250 - 10, 350 - 10, 250 + 10, 350 + 10);
+	pDC->Ellipse(250 - 10, 425 - 10, 250 + 10, 425 + 10);
 
 	pDC->SetWorldTransform(&oldForm);
 	pDC->SelectObject(oldBrush);
@@ -281,7 +285,7 @@ void CGDILabVezba2View::_DrawRightArm(CDC* pDC)
 
 	//Rotiramo prvo za Pi/4
 	_SetRoation(pDC, angleStep4, 250, 350);
-	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 275 + 5, 250 + (30 / 3), 350 - 5));
+	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 275 , 250 + (30 / 3), 350));
 	
 	pDC->GetWorldTransform(&saveForm);
 
@@ -290,7 +294,7 @@ void CGDILabVezba2View::_DrawRightArm(CDC* pDC)
 	_SetRoation(pDC, angleStep4, 250, 275);
 
 
-	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 2), 200 + 5, 250 + (30 / 2), 275 - 5));
+	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 2) - 5, 200 , 250 + (30 / 2) + 5, 275 ));
 	//Resetujemo na prvu rotaciju za Pi/4
 	pDC->SetWorldTransform(&saveForm);
 
@@ -298,10 +302,10 @@ void CGDILabVezba2View::_DrawRightArm(CDC* pDC)
 	_SetRoation(pDC, -angleStep4, 250, 275);
 
 
-	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 2), 200 + 5, 250 + (30 / 2), 275 - 5));
+	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 2) - 5, 200 , 250 + (30 / 2) + 5, 275 ));
 
 	pDC->SetWorldTransform(&saveForm);
-	pDC->Ellipse(250 - 15, 275 - 15, 250 + 15, 275 + 15);
+	pDC->Ellipse(250 - 10, 275 - 10, 250 + 10, 275 + 10);
 
 	pDC->SetWorldTransform(&oldForm);
 
@@ -314,9 +318,9 @@ void CGDILabVezba2View::_DrawLeftArm(CDC* pDC)
 	
 	//Postavlja se na rotaciju -Pi/4 koja je pod uticajem samo vece promenjive rotacije
 	const double angleStep4 = C_PI / 4;
-	_SetRoation(pDC, angleStep4, 250, 350);
+	_SetRoation(pDC, -angleStep4, 250, 350);
 
-	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 275 + 5, 250 + (30 / 3), 350 - 5));
+	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 275 , 250 + (30 / 3), 350 ));
 
 	pDC->SetWorldTransform(&oldForm);
 }
@@ -329,7 +333,7 @@ void CGDILabVezba2View::_DrawUpper(CDC* pDC)
 	_SetTransformation2(pDC);
 
 
-	PlayEnhMetaFile(pDC->m_hDC, emf_cactus_light, CRect(250 - (30 / 3), 275 + 5, 250 + (30 / 3), 350 - 5));
+	PlayEnhMetaFile(pDC->m_hDC, emf_cactus_light, CRect(250 - (30 / 3), 275 , 250 + (30 / 3), 350 ));
 	pDC->GetWorldTransform(&saveForm);
 	//Ovde smo pod uticajem obe promenjive transformacije
 	
@@ -339,28 +343,28 @@ void CGDILabVezba2View::_DrawUpper(CDC* pDC)
 	_SetRoation(pDC, angleStep4, 250, 275);
 
 	//Gornji desni deo
-	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 200 + 5, 250 + (30 / 3), 275 - 5));
-	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 1), 125 + 5, 250 + (30 / 1), 200 - 5));
-	pDC->Ellipse(250 - 15, 200 - 15, 250 + 15, 200 + 15);
+	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 200 , 250 + (30 / 3), 275 ));
+	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 1), 125 , 250 + (30 / 1), 200 ));
+	pDC->Ellipse(250 - 10, 200 - 10, 250 + 10, 200 + 10);
 	
 	//Vracamo uticaj na samo promenjive transformacije
 	pDC->SetWorldTransform(&saveForm);
 	//Crtamo gornji deo
-	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 200 + 5, 250 + (30 / 3), 275 - 5));
-	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 1), 125 + 5, 250 + (30 / 1), 200 - 5));
-	pDC->Ellipse(250 - 15, 200 - 15, 250 + 15, 200 + 15);
+	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 200 , 250 + (30 / 3), 275 ));
+	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 1), 125 , 250 + (30 / 1), 200 ));
+	pDC->Ellipse(250 - 10, 200 - 10, 250 + 10, 200 + 10);
 
 	//Rotiramo za -Pi/4, a pod uticajem smo obe promenjive transformacije
 	
 	_SetRoation(pDC, -angleStep4, 250, 275);
 
-	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 200 + 5, 250 + (30 / 3), 275 - 5));
+	PlayEnhMetaFile(pDC->m_hDC, emf_cactus, CRect(250 - (30 / 3), 200 , 250 + (30 / 3), 275 ));
 
 	//Vracamo uticaj na samo promenjive transformacije
 	pDC->SetWorldTransform(&saveForm);
 	//Crtamo krugove koji su ispred kaktusa i koji su pod uticajem obe promenjive transformacije
-	pDC->Ellipse(250 - 15, 275 - 15, 250 + 15, 275 + 15);
-	pDC->Ellipse(250 - 15, 200 - 15, 250 + 15, 200 + 15);
+	pDC->Ellipse(250 - 10, 275 - 10, 250 + 10, 275 + 10);
+	pDC->Ellipse(250 - 10, 200 - 10, 250 + 10, 200 + 10);
 
 	pDC->SetWorldTransform(&oldForm);
 }
