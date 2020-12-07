@@ -28,6 +28,7 @@ BEGIN_MESSAGE_MAP(CGDILabVezba2View, CView)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_KEYDOWN()
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 // CGDILabVezba2View construction/destruction
@@ -64,18 +65,29 @@ void CGDILabVezba2View::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
+	CRect rect;
+	GetClientRect(&rect);
+	CDC* memDC = new CDC();
+	memDC->CreateCompatibleDC(pDC);
+	CBitmap img; 
+	img.CreateCompatibleBitmap(pDC, rect.Width(), rect.Height());
+	memDC->SelectObject(img);
 
 	CRgn region;
-	region.CreateRectRgnIndirect(_SetRegion(pDC));
-	_DrawBackground(pDC);
-	_DrawCactus(pDC);
-	_DrawPot(pDC);
-	_DrawName(pDC);
+	region.CreateRectRgnIndirect(_SetRegion(memDC));
+	_DrawBackground(memDC);
+	_DrawCactus(memDC);
+	_DrawPot(memDC);
+	_DrawName(memDC);
 
 	if (drawGrid)
-		_DrawGrid(pDC);
+		_DrawGrid(memDC);
 	
-	pDC->SelectClipRgn(&region);
+	memDC->SelectClipRgn(&region);
+
+	pDC->BitBlt(0, 0, rect.Width(), rect.Height(), memDC, 0, 0, SRCCOPY);
+	delete memDC;
+
 }
 
 
@@ -439,4 +451,11 @@ void CGDILabVezba2View::_SetRoation(CDC* pDC, float angle, float x, float y)
 		-y
 	};
 	pDC->ModifyWorldTransform(&form, MWT_LEFTMULTIPLY);
+}
+
+BOOL CGDILabVezba2View::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: Add your message handler code here and/or call default
+	return TRUE;
+	//return CView::OnEraseBkgnd(pDC);
 }
