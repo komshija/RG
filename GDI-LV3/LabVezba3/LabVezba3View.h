@@ -11,7 +11,6 @@ class CLabVezba3View : public CView
 protected: // create from serialization only
 	CLabVezba3View() noexcept;
 	DECLARE_DYNCREATE(CLabVezba3View)
-	
 //Methods
 	void Translate(CDC* pDC, float dX, float dY, bool rightMultiply);
 	void Scale(CDC* pDC, float dX, float dY, bool rightMultiply);
@@ -25,7 +24,7 @@ protected: // create from serialization only
 	DImage** part;
 	const float C_PI = 3.141592653589793;
 	// Jedan stepen
-	const float stepAngle = (C_PI) / 180;
+	const float stepAngle = (C_PI) / 180;// Jedan stepen u radijanima
 public:
 	CLabVezba3Doc* GetDocument() const;
 // Operations
@@ -56,6 +55,7 @@ protected:
 public:
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 
+//	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 };
 
 #ifndef _DEBUG  // debug version in LabVezba3View.cpp

@@ -4830,6 +4830,11 @@ void DImage::MakeItGrey()
 {
 	unsigned char* pixelArray = GetDIBBits();
 	DWORD sizeOfPicture = Width() * Height() * BPP();
+
+	//Prvi piksel koji se smatra pozadinskim, za njega ne radimo aritmeticku sredinu
+	//Zato sto postoji mogucnost da se pogodi nijansa sa nekim pikselom u slagalici
+	//Pa bi deo imao providne piksele tamo gde ne treba
+
 	int firstPixel[3];
 	for (DWORD ptr = 0; ptr < sizeOfPicture; ptr += BPP())
 	{
@@ -4841,34 +4846,16 @@ void DImage::MakeItGrey()
 			if (ptr == 0)
 				firstPixel[i] = pixelArray[i];
 			else
-			{
 				bg = (firstPixel[i] == pixelArray[ptr + i]) && bg;
-			}
 			pixel += pixelArray[ptr + i];
 		}
 		pixel /= 3;
-
 		
 		if (pixel > 255)
 			pixel = 255;
 
 		for (int i = 0; i < 3 && !bg; i++)
 			pixelArray[ptr + i] = pixel;
-
 	}
 	Update();
 }
-
-/*void DImage::Unpack()
-{
-	unsigned int lineWidth = GetScanlineWidth();
-	unsigned char* newBuf = new unsigned char[m_nHeight * lineWidth];
-	memset(newBuf, 0, m_nHeight * lineWidth);
-	int indNew = 0, indOld = 0;
-	for(int i=0; i<m_nHeight; i++)
-	{
-		memcpy(&newBuf[i*lineWidth], &m_pBuf[i*m_nWidth], lineWidth);
-	}
-	delete m_pBuf;
-	m_pBuf = newBuf;
-}*/

@@ -25,6 +25,7 @@ BEGIN_MESSAGE_MAP(CLabVezba3View, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_ERASEBKGND()
 //	ON_WM_KEYDOWN()
+//ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
 
 // CLabVezba3View construction/destruction
@@ -34,16 +35,23 @@ CLabVezba3View::CLabVezba3View() noexcept
 	// TODO: add construction code here
 	part = new DImage * [3];
 	for (int i = 0; i < 3; i++)
-	{
 		part[i] = new DImage[3];
+
+
+	part[0][0].Load(CString("Bitmaps/index3.bmp"));
+	part[0][1].Load(CString("Bitmaps/index.bmp"));
+	part[0][2].Load(CString("Bitmaps/index9.bmp"));
+	part[1][0].Load(CString("Bitmaps/index7.bmp"));
+	part[1][1].Load(CString("Bitmaps/index2.bmp"));
+	part[1][2].Load(CString("Bitmaps/index4.bmp"));
+	part[2][0].Load(CString("Bitmaps/index8.bmp"));
+	part[2][1].Load(CString("Bitmaps/index6.bmp"));
+	part[2][2].Load(CString("Bitmaps/index5.bmp"));
+
+	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
-		{
-			CString fileName;
-			fileName.Format(CString("Bitmaps/index%d%d.bmp"), i, j);
-			part[i][j].Load(fileName);
 			part[i][j].MakeItGrey();
-		}
-	}
+
 }
 
 CLabVezba3View::~CLabVezba3View()
@@ -70,9 +78,7 @@ void CLabVezba3View::OnDraw(CDC* pDC)
 	if (!pDoc)
 		return;
 
-
-
-	
+	//Kreiramo MemDC u koji ce da se sve iscrtava
 	CRect clientWindow;
 	GetClientRect(&clientWindow);
 	CDC* memDC = new CDC();
@@ -87,7 +93,7 @@ void CLabVezba3View::OnDraw(CDC* pDC)
 	XFORM oldForm;
 	memDC->GetWorldTransform(&oldForm);
 
-	//0,0 - Done
+	//0,0
 	
 	Translate(memDC, 128, 128, false);
 	Mirror(memDC, false, true, false);
@@ -96,34 +102,34 @@ void CLabVezba3View::OnDraw(CDC* pDC)
 	DrawTransparent(memDC, &part[0][0], -22, 22);
 	memDC->SetWorldTransform(&oldForm);
 	
-	//0,1 - Done
+	//0,1
 	
 	Translate(memDC, 128, 134, false);
 	Mirror(memDC, true, false, false);
 	Rotate(memDC, 81.9, false);
 	Translate(memDC, -(128), -(134), false);
-	DrawTransparent(memDC, &part[0][1], -49, 115);
+	DrawTransparent(memDC, &part[0][1], -47, 112);
 	memDC->SetWorldTransform(&oldForm);
 	
-	//0,2 - Done
+	//0,2
 
 	Translate(memDC, 128, 134, false);
 	Mirror(memDC, false, true,false);
 	Rotate(memDC, -97.3, false);
 	Translate(memDC, -(128), -(134), false);
-	DrawTransparent(memDC, &part[0][2], -66, 265);
+	DrawTransparent(memDC, &part[0][2], -65, 262);
 	memDC->SetWorldTransform(&oldForm);
 
-	//1,0 - Done
+	//1,0
 
 	Translate(memDC, 121, 133, false);
 	Mirror(memDC, true, false, false);
-	Rotate(memDC, -14, false);
+	Rotate(memDC, -14.2, false);
 	Translate(memDC, -(121), -(133), false);
 	DrawTransparent(memDC, &part[1][0], -13, 117);
 	memDC->SetWorldTransform(&oldForm);
 
-	//1,1 - Done
+	//1,1
 
 	Translate(memDC, 121, 133, false);
 	Mirror(memDC, false, true, false);
@@ -132,34 +138,34 @@ void CLabVezba3View::OnDraw(CDC* pDC)
 	DrawTransparent(memDC, &part[1][1], -139, -112);
 	memDC->SetWorldTransform(&oldForm);
 
-	//1,2 - Done
+	//1,2
 
 	Translate(memDC, 122, 134, false);
 	Mirror(memDC, true, false, false);
 	Rotate(memDC, 33.3, false);
 	Translate(memDC, -(122), -(134), false);
-	DrawTransparent(memDC, &part[1][2], -172, 247);
+	DrawTransparent(memDC, &part[1][2], -173, 247);
 	memDC->SetWorldTransform(&oldForm);
 
-	//2,0 - Done
+	//2,0
 
 	Translate(memDC, 125, 140, false);
 	Mirror(memDC, true, false, false);
-	Rotate(memDC, 25, false);
+	Rotate(memDC, 24.4, false);
 	Translate(memDC, -(125), -(140), false);
-	DrawTransparent(memDC, &part[2][0],  133, 229);
+	DrawTransparent(memDC, &part[2][0],  130, 231);
 	memDC->SetWorldTransform(&oldForm);
 
-	//2,1 - Done
+	//2,1
 
 	Translate(memDC, 125, 140, false);
 	Mirror(memDC, false, true, false);
-	Rotate(memDC, 91, false);
+	Rotate(memDC, 90.6, false);
 	Translate(memDC, -(125), -(140), false);
-	DrawTransparent(memDC, &part[2][1], -262, -117);
+	DrawTransparent(memDC, &part[2][1], -262, -119);
 	memDC->SetWorldTransform(&oldForm);
 
-	//2,1 - Done
+	//2,2
 
 	Translate(memDC, 125, 140, false);
 	Mirror(memDC, false, true, false);
@@ -168,14 +174,10 @@ void CLabVezba3View::OnDraw(CDC* pDC)
 	DrawTransparent(memDC, &part[2][2], 369, -83);
 	memDC->SetWorldTransform(&oldForm);
 
-
-
-
-	memDC->SetWorldTransform(&oldForm);
 	memDC->SetGraphicsMode(oldGMode);
 	//====================
+	//Kopiramo MemDC u pDC
 	MemDCTopDC(memDC, pDC);
-	//pDC->BitBlt(0, 0, clientWindow.Width(), clientWindow.Height(), memDC, 0, 0, SRCCOPY);
 	delete memDC;
 	
 }
@@ -215,17 +217,13 @@ CLabVezba3Doc* CLabVezba3View::GetDocument() const // non-debug version is inlin
 }
 #endif //_DEBUG
 
-
 // CLabVezba3View message handlers
+// Da izbegnemo treperenje
 BOOL CLabVezba3View::OnEraseBkgnd(CDC* pDC)
 {
 	return TRUE;
 }
-
-
 // User methods
-
-
 void CLabVezba3View::Translate(CDC* pDC, float dX, float dY, bool rightMultiply)
 {
 	XFORM form =
@@ -278,11 +276,12 @@ void CLabVezba3View::Mirror(CDC* pDC, bool mx, bool my, bool rightMultiply)
 	};
 	pDC->ModifyWorldTransform(&form, rightMultiply ? MWT_RIGHTMULTIPLY : MWT_LEFTMULTIPLY);
 }
-
 void CLabVezba3View::DrawTransparent(CDC* pDC, DImage* img, int x, int y)
 {
+	//Kreiramo masku 1 bit po pikselu monohromatska
 	CBitmap mask;
 	mask.CreateBitmap(img->Width(), img->Height(), 1, 1, NULL);
+	//Kopiramo bajtove iz DImage u Bitmapu sa kojom radimo
 	CBitmap image;
 	image.CreateBitmap(img->Width(), img->Height(), 4, 8, NULL);
 	image.SetBitmapBits(img->Width() * img->Height() * img->BPP(), img->GetDIBBits());
@@ -294,11 +293,13 @@ void CLabVezba3View::DrawTransparent(CDC* pDC, DImage* img, int x, int y)
 
 	CBitmap* srcOldBitmap = srcDC->SelectObject(&image);
 	CBitmap* dstOldBitmap = dstDC->SelectObject(&mask);
-
+	
+	//Pravimo masku
 	COLORREF removeColor = srcDC->GetPixel(0, 0);
 	COLORREF srcOldBckColor = srcDC->SetBkColor(removeColor);
 	dstDC->BitBlt(0, 0, img->Width(), img->Height(), srcDC, 0, 0, SRCCOPY);
 
+	//Menjamo boje i za bk i text i odstranjujemo pozadinsku boju
 	COLORREF srcOldTextColor = srcDC->SetTextColor(RGB(255, 255, 255));
 	srcDC->SetBkColor(RGB(0, 0, 0));
 	srcDC->BitBlt(0, 0, img->Width(), img->Height(), dstDC, 0, 0, SRCAND);
@@ -306,32 +307,38 @@ void CLabVezba3View::DrawTransparent(CDC* pDC, DImage* img, int x, int y)
 	dstDC->SelectObject(dstOldBitmap);
 	delete dstDC;
 
+
+	//Selektujemo masku i ANDUJEMO sa pDC, tj u nasem slucaju tu se prosledjuje memDC
 	srcDC->SelectObject(&mask);
 	pDC->BitBlt(x, y, img->Width(), img->Height(), srcDC, 0, 0, SRCAND);
+	//I sad crtamo sliku tj OR
 	srcDC->SelectObject(&image);
 	pDC->BitBlt(x, y, img->Width(), img->Height(), srcDC, 0, 0, SRCPAINT);
 	srcDC->SelectObject(srcOldBitmap);
 	delete srcDC;
 }
-
 void CLabVezba3View::MemDCTopDC(CDC* memDC, CDC* pDC)
 {
 	CRect clientWindow;
 	GetClientRect(&clientWindow);
+	//Kreiramo masku
 	CBitmap mask;
 	mask.CreateBitmap(clientWindow.Width(), clientWindow.Height(), 1, 1, NULL);
 	CDC* dstDC = new CDC();
 	dstDC->CreateCompatibleDC(memDC);
 	dstDC->SelectObject(&mask);
+	//Postavljamo memDC boje
 	memDC->SetBkColor(RGB(0, 0, 0));
 	memDC->SetTextColor(RGB(255, 255, 255));
+	//pravimo masku 
 	dstDC->BitBlt(0, 0, clientWindow.Width(), clientWindow.Height(), memDC, 0, 0, SRCPAINT);
+	//Radimo AND sa pDC, da napravimo masku gde ce da bude iscrtano
 	pDC->BitBlt(0, 0, clientWindow.Width(), clientWindow.Height(), dstDC, 0, 0, SRCAND);
 	delete dstDC;
+	//Crtamo sliku
 	pDC->BitBlt(0, 0, clientWindow.Width(), clientWindow.Height(), memDC, 0, 0, SRCPAINT);
 
 }
-
 void CLabVezba3View::DrawGrid(CDC* memDC)
 {
 	CPen* pen = new CPen(PS_SOLID, 1, RGB(1, 1, 1));
