@@ -2,6 +2,7 @@
 ## Laboratorijske vežbe
 
   * Student: Milan Radosavljević
+  * Email: milan.radosavljevic@elfak.rs
   * Elektronski Fakultet 2020/2021.
   * C++
 
