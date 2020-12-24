@@ -2,7 +2,7 @@
 ## Laboratorijske vežbe
 
   * Student: Milan Radosavljević
-  * Elektronski Fakultet 2020
+  * Elektronski Fakultet 2020/2021.
   * C++
 
 
