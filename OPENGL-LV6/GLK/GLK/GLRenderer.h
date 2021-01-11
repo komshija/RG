@@ -1,5 +1,5 @@
 #pragma once
-
+#include "CGLTexture.h"
 class CGLRenderer
 {
 public:
@@ -30,4 +30,6 @@ protected:
 
 	void DrawTruck();
 	void DrawSphere(float radius);
+
+	CGLTexture groundTex, truckTex;
 };

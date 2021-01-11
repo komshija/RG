@@ -55,6 +55,8 @@ void CGLRenderer::PrepareScene(CDC* pDC)
 	glEnable(GL_TEXTURE_2D);
 
 	CGLTexture::PrepareTexture(false);
+	groundTex.LoadFileForm(CString("trava.jpg"));//256x256
+	truckTex.LoadFileForm(CString("kamion.jpg"));
 
 	//---------------------------------
 	wglMakeCurrent(NULL, NULL);
@@ -100,6 +102,8 @@ void CGLRenderer::DestroyScene(CDC* pDC)
 {
 	wglMakeCurrent(pDC->m_hDC, m_hrc);
 	// ... 
+	truckTex.Relase();
+	groundTex.Relase();
 	wglMakeCurrent(NULL, NULL);
 	if (m_hrc)
 	{
@@ -121,8 +125,7 @@ void CGLRenderer::DrawGround()
 	float z = -768 / 8;
 	int step = 256 / 8;
 
-	tex.LoadFileForm(CString("trava.jpg"));//256x256
-	tex.Select();
+	groundTex.Select();
 
 
 	glBegin(GL_QUADS);
@@ -139,7 +142,6 @@ void CGLRenderer::DrawGround()
 
 	glEnd();
 	CGLTexture::BindDefault();
-	tex.Relase();
 }
 
 void CGLRenderer::DrawAxis()
@@ -321,10 +323,9 @@ void CGLRenderer::DrawTruck()
 {
 	float step = 4;
 	float width = 16;
-	CGLTexture tex2;
 
-	tex2.LoadFileForm(CString("kamion.jpg"));
-	tex2.Select();
+
+	truckTex.Select();
 
 	glPushMatrix();
 	glTranslatef(-6.5 * step,0, 0);
@@ -455,7 +456,7 @@ void CGLRenderer::DrawTruck()
 
 	}
 	glEnd();
-	tex2.Select();
+	truckTex.Select();
 
 	glPushMatrix();
 	glTranslatef(2.5 * step, 0, -width + 2);
@@ -473,7 +474,7 @@ void CGLRenderer::DrawTruck()
 
 	CGLTexture::BindDefault();
 
-	tex2.Select();
+	truckTex.Select();
 
 	glPushMatrix();
 
@@ -484,7 +485,6 @@ void CGLRenderer::DrawTruck()
 
 	glPopMatrix();
 
-	tex2.Relase();
 
 }
 
