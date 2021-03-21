@@ -14,4 +14,8 @@ Vežbe:
 * GDI - Mona Lisa puzzle
 * OpenGL - 3D kaktus
 * OpenGL - Vaza
-* OpenGL - ..
+* OpenGL - Kamion
+
+
+Kolokvijumi GDI:
+* 2011 - 2018
