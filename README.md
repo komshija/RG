@@ -9,7 +9,7 @@ Ovaj materijal je isključivo u edukativne svrhe.
 Moguće da sve nije stopostotno tačno. Ništa ne uzimati zdravo za gotovo.
 Slobodno napraviti pull request ako uočite grešku ili rešite nešto što ja nisam.
 
-#Sadržaj
+# Sadržaj
 
 ## Laboratorijske vežbe:
   
